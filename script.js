@@ -71,3 +71,13 @@
 
   refresh();
 })();
+
+// Animasi muncul bila skrol
+(function () {
+  var els = document.querySelectorAll('.prob, .feat, .plan, .who-img, .clicker-img, .faq details, .ticks li');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .15 });
+  els.forEach(function (el, i) { el.classList.add('reveal'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; io.observe(el); });
+})();
